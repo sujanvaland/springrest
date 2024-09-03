@@ -7,21 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Entity
-@Table(name="user")
+@Table(name = "userdetail")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("Id")
-    public long Id;
-    @Column(unique = true)
-    @NonNull
-    @JsonProperty("Username")
-    public String Username;
-    @NonNull
-    @JsonProperty("Password")
-    public String Password;
-
+    public long id;
+    public String username;
+    public String password;
 }

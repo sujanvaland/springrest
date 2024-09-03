@@ -18,18 +18,16 @@ import lombok.NoArgsConstructor;
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("Id")
-    public long Id;
+    public long id;
 
-    @JsonProperty("Name")
-    public String Name;
+    public String name;
 
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<ContactDetail> contactDetailList = new ArrayList<>();
 
     public Contact(String name) {
-        this.Name = name;
+        this.name = name;
     }
 
     public void setContactDetails(List<ContactDetail> contactDetailsList) {

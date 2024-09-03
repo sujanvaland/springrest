@@ -16,12 +16,12 @@ public class ContactDetail {
     @ManyToOne
     @JoinColumn(name = "contact_id", referencedColumnName = "id")
     private Contact contact;
-    private String Phone;
-    private String Email;
+    private String phone;
+    private String email;
 
     public ContactDetail(String email, String phone, Contact contact) {
-        this.Email = email;
-        this.Phone = phone;
+        this.email = email;
+        this.phone = phone;
         this.contact = contact;
     }
 }

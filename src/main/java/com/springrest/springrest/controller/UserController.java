@@ -1,7 +1,7 @@
 package com.springrest.springrest.controller;
-import com.springrest.springrest.dto.ContactDTO;
-import com.springrest.springrest.entities.Contact;
-import com.springrest.springrest.services.IContactService;
+import com.springrest.springrest.dto.UserDTO;
+import com.springrest.springrest.entities.User;
+import com.springrest.springrest.services.IUserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,35 +12,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/contact")
+@RequestMapping("/api/user")
 @Slf4j
-public class ContactController {
+public class UserController {
 
     @Autowired
-    private IContactService contactService;
+    private IUserService userService;
 
     @GetMapping
-    public List<Contact> getAllContacts() {
-        return contactService.getAllContacts();
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Contact> getContactById(@PathVariable Long id) {
-        return contactService.getContactById(id)
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Contact createContact(@Valid @RequestBody ContactDTO contact) {
-        return contactService.saveContact(contact);
+    public User createUser(@Valid @RequestBody UserDTO userDTO) {
+        return userService.saveUser(userDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateContact(@PathVariable Long id,@Valid @RequestBody ContactDTO contactDTO) {
+    public ResponseEntity updateContact(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
         try {
-            Contact updatedContact = contactService.updateContact(id, contactDTO);
-            return new ResponseEntity<>(updatedContact, HttpStatus.OK);
+            User updatedUser = userService.updateUser(id, userDTO);
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
         } catch (RuntimeException e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -50,11 +50,13 @@ public class ContactController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteContact(@PathVariable Long id) {
-        if (contactService.getContactById(id).isPresent()) {
-            contactService.deleteContact(id);
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        if (userService.getUserById(id).isPresent()) {
+            userService.deleteUser(id);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }
+
+
 }
