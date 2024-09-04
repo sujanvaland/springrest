@@ -1,4 +1,5 @@
 package com.springrest.springrest.entities;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,7 @@ public class ContactDetail {
     private long id;
     @ManyToOne
     @JoinColumn(name = "contact_id", referencedColumnName = "id")
+    @JsonBackReference
     private Contact contact;
     private String phone;
     private String email;
